@@ -73,7 +73,12 @@ function parseEnvironment(value) {
         const items = value.split(',')
         items.forEach(item => {
             const [key, value] = item.split('=')
-            environment[key] = value
+            if (key == 'PF') {
+                const password = fs.readFileSync(value, 'utf-8')
+                environment['PASSWORD'] = password
+            } else {
+                environment[key] = value
+            }
         })
     }
     return environment
