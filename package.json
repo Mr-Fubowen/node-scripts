@@ -1,6 +1,7 @@
 {
-    "name": "node-scripts",
-    "version": "1.0.0",
+    "name": "node-script-tools",
+    "version": "1.0.1",
+    "private": false,
     "description": "预定义各种实用脚本，包括部署、上传、下载、备份等，在开发和部署中使用",
     "main": "index.js",
     "bin": {
