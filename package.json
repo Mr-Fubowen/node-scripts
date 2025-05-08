@@ -23,6 +23,10 @@
         "lodash": "^4.17.21",
         "node-ssh-plus": "^1.0.5"
     },
+    "repository": {
+        "type": "github",
+        "url": "git@github.com:Mr-Fubowen/node-scripts.git"
+    },
     "keywords": [
         "node",
         "script",
