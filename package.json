@@ -1,0 +1,37 @@
+{
+    "name": "node-scripts",
+    "version": "1.0.0",
+    "description": "预定义各种实用脚本，包括部署、上传、下载、备份等，在开发和部署中使用",
+    "main": "index.js",
+    "bin": {
+        "n": "./index.js",
+        "n-upload": "./bin/upload.js",
+        "n-login": "./bin/login.js",
+        "n-text": "./bin/text.js",
+        "n-zip": "./bin/zip.js",
+        "n-unzip": "./bin/unzip.js",
+        "n-web": "./bin/web.js",
+        "n-backup": "./bin/backup.js"
+    },
+    "dependencies": {
+        "colors-console": "^1.0.3",
+        "commander": "^12.1.0",
+        "compressing": "^1.10.1",
+        "date-fns": "^4.1.0",
+        "fs-extra": "^11.2.0",
+        "inquirer": "^12.6.0",
+        "lodash": "^4.17.21",
+        "node-ssh-plus": "^1.0.5"
+    },
+    "keywords": [
+        "node",
+        "script",
+        "upload",
+        "download",
+        "backup",
+        "ssh",
+        "zip"
+    ],
+    "author": "fubowen",
+    "license": "MIT"
+}
