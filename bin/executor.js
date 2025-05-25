@@ -97,9 +97,10 @@ function onLog(type, data) {
     }
 }
 async function executeInContext(script, progressFn, context) {
-    const commands = script.split('\n')
-    for (const item of commands) {
-        if (item.trim() == '') {
+    const commands = script.split(/\r?\n/)
+    for (let item of commands) {
+        item = item.trim()
+        if (item == '') {
             continue
         }
         const command = replace(item, context.env)
