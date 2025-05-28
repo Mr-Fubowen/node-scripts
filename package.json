@@ -1,6 +1,6 @@
 {
     "name": "node-script-tools",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "private": false,
     "description": "预定义各种实用脚本，包括部署、上传、下载、备份等，在开发和部署中使用",
     "main": "index.js",
@@ -22,7 +22,8 @@
         "fs-extra": "^11.2.0",
         "inquirer": "^12.6.0",
         "lodash": "^4.17.21",
-        "node-ssh-plus": "^1.0.5"
+        "node-ssh-plus": "^1.0.5",
+        "strip-ansi": "^7.1.0"
     },
     "repository": {
         "type": "github",
