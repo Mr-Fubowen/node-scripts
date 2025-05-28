@@ -115,6 +115,7 @@ async function executeInContext(script, progressFn, context) {
                 } else {
                     message.data = await context.exec(command)
                 }
+                progressFn(message.type, message.data)
             } catch (error) {
                 message.type = 'STD_ERR'
                 message.data = error.message
