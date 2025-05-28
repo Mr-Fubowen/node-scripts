@@ -8,7 +8,7 @@ program
     .name('n-zip')
     .argument('<source>', '服务器文件/路径')
     .option('-f, --isFile', '文件', false)
-    .option('-v, --isVersion', '备份名称是版本还是时间', false)
+    .option('-v, --isVersion', '备份后缀是版本还是时间', false)
     .allowUnknownOption()
 
 async function execute(ctx, command) {
