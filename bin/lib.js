@@ -97,12 +97,12 @@ async function commit(path, options) {
         return '没有需要提交的内容，取消提交..'
     }
     await git.add('.')
-    await git.commit(options.msg + now())
+    await git.commit(options.msg || '自动提交')
     await git.push()
     const log = await git.log({ n: 1 })
     let name = log.latest.author_name
     let message = log.latest.message
-    return util.format('Git Commit: %s: %s', name, message)
+    return util.format('Git Commit: %s， %s', name, message)
 }
 
 module.exports = {
