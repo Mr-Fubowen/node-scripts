@@ -2,6 +2,8 @@ const compressing = require('compressing')
 const { SSHClient } = require('node-ssh-plus')
 const fs = require('fs-extra')
 const util = require('util')
+const simpleGit = require('simple-git')
+const { now } = require('../utils/time')
 
 function existOrthrow(value, msg, ...args) {
     if (!value) {
@@ -80,6 +82,33 @@ async function backup(source, options) {
     return await this.ssh.createTimePointBackup(source, options.isFile)
 }
 
+async function commit(path, options) {
+    existOrthrow(path, '缺少 Git 仓库路径参数')
+    const has = await fs.pathExists(path)
+    existOrthrow(has, '目标路径不存在 Git 仓库')
+    const git = simpleGit(path)
+    const status = await git.status()
+    const hasChanged =
+        status.not_added.length > 0 ||
+        status.modified.length > 0 ||
+        status.deleted.length > 0 ||
+        status.renamed.length > 0
+    if (!hasChanged) {
+        return '没有需要提交的内容，取消提交...'
+    }
+    await git.add('.')
+    await git.commit(options.remark + now())
+    await git.push()
+    const log = await git.log({ n: 1 })
+    return {
+        hash: log.latest.hash,
+        author: log.latest.author_name,
+        date: log.latest.date,
+        message: log.latest.message,
+        email: log.latest.author_email
+    }
+}
+
 module.exports = {
     zip,
     unzip,
@@ -87,5 +116,6 @@ module.exports = {
     upload,
     text,
     json,
-    backup
+    backup,
+    commit
 }

@@ -4,6 +4,7 @@ const fs = require('fs-extra')
 const ask = require('../utils/ask')
 const log = require('../utils/log')
 const time = require('../utils/time')
+const cron = require('node-cron')
 
 const zip = require('./zip')
 const unzip = require('./unzip')
@@ -11,6 +12,7 @@ const login = require('./login')
 const upload = require('./upload')
 const text = require('./text')
 const backup = require('./backup')
+const commit = require('./commit')
 
 const handlers = new Map()
 
@@ -20,6 +22,7 @@ handlers.set('n-login', login)
 handlers.set('n-upload', upload)
 handlers.set('n-text', text)
 handlers.set('n-backup', backup)
+handlers.set('n-commit', commit)
 
 function parseArgs(text) {
     const regex = /\{\{(\w+)(?::([^}]+))?\}\}/g
@@ -154,8 +157,24 @@ async function executeScript(path, options) {
     if (options.view) {
         log.text(text, '脚本内容')
     } else {
-        const environment = parseEnvironment(options.environment)
-        await execute(text, onLog, environment)
+        if (options.cron) {
+            let isRunning = false
+            cron.schedule(options.cron, async () => {
+                if (isRunning) {
+                    return onLog('STD_ERR', path + ' 正在执行，本次执行取消...')
+                }
+                try {
+                    isRunning = true
+                    const environment = parseEnvironment(options.environment)
+                    await execute(text, onLog, environment)
+                } finally {
+                    isRunning = false
+                }
+            })
+        } else {
+            const environment = parseEnvironment(options.environment)
+            await execute(text, onLog, environment)
+        }
     }
 }
 
