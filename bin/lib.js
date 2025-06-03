@@ -85,7 +85,7 @@ async function backup(source, options) {
 async function commit(path, options) {
     existOrthrow(path, '缺少 Git 仓库路径参数')
     const has = await fs.pathExists(path)
-    existOrthrow(has, '目标路径不存在 Git 仓库')
+    existOrthrow(has, 'Git 仓库不存在，目标路径：%s', path)
     const git = simpleGit(path)
     const status = await git.status()
     const hasChanged =
@@ -100,13 +100,9 @@ async function commit(path, options) {
     await git.commit(options.remark + now())
     await git.push()
     const log = await git.log({ n: 1 })
-    return {
-        hash: log.latest.hash,
-        author: log.latest.author_name,
-        date: log.latest.date,
-        message: log.latest.message,
-        email: log.latest.author_email
-    }
+    let name = log.latest.author_name
+    let message = log.latest.message
+    return util.format('Git Commit: %s: %s', name, message)
 }
 
 module.exports = {
