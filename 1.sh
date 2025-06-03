@@ -1,1 +1,1 @@
-n-commit ./ -r 测试
+n-commit ./ -m 测试

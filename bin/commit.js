@@ -7,7 +7,7 @@ const program = new Command()
 program
     .name('n-commit')
     .argument('<path>', 'Git 仓库路径')
-    .option('-m, --msg', '提交信息', '')
+    .option('-m, --msg <string>', '提交信息', '')
     .allowUnknownOption()
 
 async function execute(ctx, command) {
