@@ -94,10 +94,10 @@ async function commit(path, options) {
         status.deleted.length > 0 ||
         status.renamed.length > 0
     if (!hasChanged) {
-        return '没有需要提交的内容，取消提交...'
+        return '没有需要提交的内容，取消提交..'
     }
     await git.add('.')
-    await git.commit(options.remark + now())
+    await git.commit(options.msg + now())
     await git.push()
     const log = await git.log({ n: 1 })
     let name = log.latest.author_name
