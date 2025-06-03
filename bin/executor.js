@@ -115,11 +115,17 @@ async function executeInContext(script, progressFn, context) {
             try {
                 message.type = 'STD_OUT'
                 if (fn) {
-                    message.data = await fn(context, command)
+                    message.data = await fn(context, command, progressFn)
                 } else {
-                    message.data = await context.exec(command)
+                    message.data = await context.exec(command, progressFn)
                 }
-                progressFn(message.type, message.data)
+                const msgs = message.data.split(/\r?\n/)
+                msgs.forEach(it => {
+                    let msg = it.trim()
+                    if (msg != '') {
+                        progressFn(message.type, msg)
+                    }
+                })
             } catch (error) {
                 message.type = 'STD_ERR'
                 message.data = error.message
