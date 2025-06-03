@@ -13,15 +13,16 @@
 
 ### 命令列表
 
-1. n: 执行脚本的命令, 例如 n ./bin/publish.sh -e PATH=./dist,IP=xxx.xxx.xxx.xxx,PF=./password.txt
+1. n: 执行脚本的命令, 例如 n ./bin/publish.sh -e PATH=./dist,IP=xxx.xxx.xxx.xxx,PF=./password.txt 可选参数 -c Cron 表达式 "0/5 \* \* \* \* \*"
 2. n-upload: 上传文件 {{PARENT_PATH}}/{{NAME}}.tgz {{USER:root}}@{{IP}}:{{PORT:22}}{{UPLOAD_PATH:/opt/uploads}} -p {{PASSWORD}}
 3. n-login: n-login {{USER:root}}@{{IP}}:{{PORT:22}} -p {{PASSWORD}}
 4. n-text: 创建并写入文本文件 n-text ./demo.txt 文件内容
 5. n-zip: n-zip {{PATH}} {{PARENT_PATH}}/{{NAME}}.tgz
 6. n-unzip: n-unzip {{PATH}} {{PARENT_PATH}}/{{NAME}}.tgz
 7. n-web: n-web -e PATH=./dist,IP=xxx.xxx.xxx.xxx,PF=./password.txt
-8. 目前扩充的命令有限, 请自行扩充或者在 **Github** 提交需求
-9. 请特别关注下面的**注意事项**
+8. n-commit: n-commit ./ -m '自动提交'
+9. 目前扩充的命令有限, 请自行扩充或者在 **Github** 提交需求
+10. 请特别关注下面的**注意事项**
 
 ## 预定义脚本 n-web
 

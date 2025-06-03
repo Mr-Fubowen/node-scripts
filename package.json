@@ -12,7 +12,8 @@
         "n-zip": "./bin/zip.js",
         "n-unzip": "./bin/unzip.js",
         "n-web": "./bin/web.js",
-        "n-backup": "./bin/backup.js"
+        "n-backup": "./bin/backup.js",
+        "n-commit": "./bin/commit.js"
     },
     "dependencies": {
         "colors-console": "^1.0.3",
